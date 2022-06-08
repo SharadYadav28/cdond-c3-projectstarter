@@ -136,7 +136,7 @@ jobs:
           command: |
             cd frontend
             npm i
-            npm audit fix --audit-level=critical
+            npm audit --audit-level=critical
       - restore_cache:
           key: v1-frontend-build
 
@@ -145,16 +145,16 @@ jobs:
       - image: circleci/node:13.8.0
      steps:
       - checkout
-  #    - restore_cache:
-   #       keys: [backend-build]
+      - restore_cache:
+          keys: [backend-build]
       - run:
           name: Back-end test
           command: |
             cd ~/project/backend
-            npm audit fix --audit-level=critical --force
-    #  - save_cache:
-     #     paths: [backend/node_modules]
-      #    key: backend-build
+            npm audit --audit-level=critical
+      - save_cache:
+          paths: [backend/node_modules]
+          key: backend-build
           
   deploy-infrastructure:
     docker:
