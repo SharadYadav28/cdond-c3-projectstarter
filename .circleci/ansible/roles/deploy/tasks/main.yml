@@ -1,0 +1,38 @@
+--- 
+
+  - name: "Create directory"
+    become_user: true
+    file:
+      path: /home/ubuntu/uda_app
+      state: directory
+
+  - name: "Copy backend build to server"
+    become: yes
+    unarchive:
+      src: /etc/backend.tar.gz
+      dest: /home/ubuntu/uda_app
+      owner: ubuntu
+ 
+
+  - name: "delete anything that might already be running"
+    become: true
+    command: pm2 delete all
+    ignore_errors: true
+
+  - name: "start server"
+    become: true
+    command: pm2 start -f ./main.js
+    args:
+      chdir: /home/ubuntu/uda_app/dist
+      
+    environment:
+     ENVIRONMENT: production
+     TYPEORM_CONNECTION: "{{ lookup('env', 'TYPEORM_CONNECTION') }}"
+     TYPEORM_MIGRATIONS_DIR: "./migrations"
+     TYPEORM_MIGRATIONS: "./migrations/*.js"
+     TYPEORM_ENTITIES: "./modules/domain/**/*.entity.js"
+     TYPEORM_HOST: "{{ lookup('env', 'TYPEORM_HOST') }}"
+     TYPEORM_PORT: "{{ lookup('env', 'TYPEORM_PORT') }}"
+     TYPEORM_USERNAME: "{{ lookup('env', 'TYPEORM_USERNAME') }}"
+     TYPEORM_PASSWORD: "{{ lookup('env', 'TYPEORM_PASSWORD') }}"
+     TYPEORM_DATABASE: "{{ lookup('env', 'TYPEORM_DATABASE') }}"
