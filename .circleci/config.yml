@@ -192,9 +192,9 @@ jobs:
                --query "Reservations[*].Instances[*].PublicIpAddress" \
                --filters "Name=tag:project,Values=sharadudapeopleBackend" \
               --output text)
-            # curl -H "Content-Type: text/plain" -H "token: ac8ac330-10d2-4a12-bffc-d5d15eade43d" --request PUT --data "http://$BACKEND_IP:3030" https://api.memstash.io/values/BACKEND_URL
-            curl -H "Content-Type: text/plain" https://keyvalue.immanuel.co/api/KeyVal/UpdateValue/w98d3ew0/BACKEND_URL/$BACKEND_IP:3030
-                        
+            # curl -H "Content-Type: text/plain" -H "token: ac8ac330-10d2-4a12-bffc-d5d15eade43d" --request PUT --data "http://$BACKEND_IP:3030" https://api.memstash.io/values/BACKEND_URL           
+            curl -X POST https://keyvalue.immanuel.co/api/KeyVal/UpdateValue/w98d3ew0/BACKEND_URL/$BACKEND_IP
+            
       - run:
           name: Add back-end ip to ansible inventory
           working_directory: ./.circleci/ansible
