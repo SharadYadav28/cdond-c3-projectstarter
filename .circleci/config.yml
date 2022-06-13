@@ -393,8 +393,8 @@ jobs:
                --query "Reservations[*].Instances[*].PublicIpAddress" \
                --filters "Name=tag:project,Values=sharadudapeopleBackend" \
               --output text)   
-            echo "BACKEND_URL=${BACKEND_IP}"
-            curl "$BACKEND_URL/api/status"
+            echo "BACKEND_URL=http://$BACKEND_IP:3030"
+            curl "$BACKEND_URL:3030/api/status"
 
       - run:
           name: Frontend smoke test.
@@ -403,12 +403,12 @@ jobs:
             URL="https://udapeople-${CIRCLE_WORKFLOW_ID:0:7}.s3-us-east-1.amazonaws.com/index.html"
             if curl -s ${URL} | grep "Welcome"
             then
-              return 1
+              return 0
             else
               return 1
             fi
-      - destroy-environment
-      - revert-migrations 
+       - destroy-environment
+       - revert-migrations 
 
   cloudfront-update:
      docker:
