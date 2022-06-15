@@ -269,6 +269,9 @@ jobs:
           command: |                      
             npm install    
             echo "TYPEORM_PORT = ${TYPEORM_PORT}"
+            echo "TYPEORM_HOST = ${TYPEORM_PORT}"
+            echo TYPEORM_HOST=$TYPEORM_HOST >> .env
+            echo TYPEORM_PORT =5432 >> .env
             npm run migrations > migration_status
            
       - run:
