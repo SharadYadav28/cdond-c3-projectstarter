@@ -250,7 +250,8 @@ jobs:
 
   run-migrations:
     docker:
-      - image: circleci/node:13.8.0
+      #- image: circleci/node:13.8.0
+      - image: cimg/node:13.8.0
     steps:
       - checkout
       - attach_workspace:
@@ -269,9 +270,9 @@ jobs:
           command: |                      
             npm install    
             echo "TYPEORM_PORT = ${TYPEORM_PORT}"
-            echo "TYPEORM_HOST = ${TYPEORM_PORT}"
+            echo "TYPEORM_HOST = ${TYPEORM_HOST}"
             echo TYPEORM_HOST=$TYPEORM_HOST >> .env
-            echo TYPEORM_PORT =5432 >> .env
+            echo TYPEORM_PORT = 5432 >> .env
             npm run migrations > migration_status
            
       - run:
