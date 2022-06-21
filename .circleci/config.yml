@@ -452,7 +452,7 @@ jobs:
 #       # Here's where you will add some code to rollback on failure 
   cleanup:
      docker:
-       - image: circleci/node:13.8.0
+       - image: amazon/aws-cli
      steps:
         # Checkout code from git
        - checkout
@@ -502,23 +502,6 @@ workflows:
             - build-backend      
       - scan-frontend:
           requires: 
-            - build-frontend
-      - deploy-infrastructure:
-          requires: [test-frontend, test-backend, scan-frontend, scan-backend]
-          filters: 
-            branches:
-              only: [master]
-      - configure-infrastructure:
-          requires: [deploy-infrastructure]
-      - run-migrations:
-          requires: [configure-infrastructure]  
-      - deploy-backend:
-          requires: [run-migrations]
-      - deploy-frontend:
-          requires: [deploy-backend]
-      - smoke-test:
-          requires: [deploy-frontend]
-      - cloudfront-update:
-          requires: [smoke-test]
+            - build-frontend      
       - cleanup:
-          requires: [cloudfront-update]
+          requires: [test-frontend, test-backend, scan-frontend, scan-backend]
