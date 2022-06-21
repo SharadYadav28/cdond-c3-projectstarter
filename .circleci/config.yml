@@ -270,7 +270,7 @@ jobs:
           command: |
             cd backend            
             npm install    
-            cat .env
+            # cat .env
             npm run build
             npm run migrations >> migrations_dump.txt      
             cat migrations_dump.txt                
@@ -333,8 +333,8 @@ jobs:
 #          command: |
             # your code here
       # Here's where you will add some code to rollback on failure     
-#      - destroy-environment
-#      - revert-migrations    
+      - destroy-environment
+      - revert-migrations    
                     
   deploy-backend:
     docker:
