@@ -1,0 +1,14 @@
+1) GIT:  
+	https://github.com/SharadYadav28/cdond-c3-projectstarter/
+
+2) S3 bucket: 
+	https://udapeople-74dc26d.s3.amazonaws.com/index.html
+
+3) CloudFront: 
+	https://d18vut0epvyybk.cloudfront.net/
+
+4) Backend server: 
+	https://ec2-100-27-25-83.compute-1.amazonaws.com/
+
+5) Prometheus Server: 
+	http://ec2-54-205-103-45.compute-1.amazonaws.com:9090/alerts
